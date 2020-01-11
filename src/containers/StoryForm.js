@@ -151,7 +151,7 @@ class FormContainer extends Component {
               title={'Story Summary : '}
               name={'name'}
               value={story.storySummary}
-              handlechange={summary => storySummary (summary)}
+              handlechange={summary => storySummary (summary.target.value)}
             />
             <TextArea
               className="story-textArea"

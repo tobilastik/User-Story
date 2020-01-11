@@ -4,7 +4,7 @@ import {Redirect, Link} from 'react-router-dom';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
 
-export default class Admin extends Component {
+export default class Storylist extends Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -57,12 +57,7 @@ export default class Admin extends Component {
           {userStory
             ? userStory.map (info => {
                 return (
-                  <Link
-                    to={{
-                      pathname: '/admin/userstory',
-                      state: [info],
-                    }}
-                  >
+                  <div>
                     <div
                       style={{
                         flexDirection: 'row',
@@ -162,34 +157,13 @@ export default class Admin extends Component {
                       <p>{info.cost}</p>
                     </div>
 
-                    <div
-                      style={{
-                        backgroundColor: info.status == 'rejected'
-                          ? 'red'
-                          : 'green',
-                      }}
-                    >
-                      <div
-                        style={{
-                          flexDirection: 'row',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          padding: '20px',
-                        }}
-                      >
-                        <p>
-                          Status
-                        </p>
-                        <p style={{padding: '20px'}}>{info.status}</p>
-                      </div>
-                    </div>
                     <hr
                       style={{
                         height: '20px',
                         backgroundColor: 'white',
                       }}
                     />
-                  </Link>
+                  </div>
                 );
               })
             : null}

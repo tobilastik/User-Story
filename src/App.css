@@ -11,7 +11,6 @@
   --mainBlack: #222;
   --mainGrey: #ececec;
   --darkGrey: #cfcfcf;
-  --mainTransition: all 0.3s linear;
   --mainSpacing: 3px;
   --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
   --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
@@ -49,8 +48,6 @@
 }
 .nav-links {
   height: 0;
-  overflow: hidden;
-  transition: var(--mainTransition);
   list-style-type: none;
 }
 .nav-links a {
@@ -84,6 +81,8 @@
     height: auto;
     display: flex;
     margin-left: 4rem;
+    list-style-type: none;
+    text-decoration: none;
   }
   .nav-links a {
     margin: 0 1rem;
@@ -325,4 +324,12 @@ input.error {
 }
 .storyBtn {
   background-color: red;
+}
+
+.api-red {
+  color: red;
+}
+
+.api-black {
+  color: black;
 }

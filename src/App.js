@@ -6,8 +6,9 @@ import About from './screens/About';
 import Landing from './screens/Landing';
 import Home from './screens/Home';
 import Admin from './screens/Admin';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Logout from './screens/Logout';
+import UserStories from './screens/UserStories';
 
 function App () {
   return (
@@ -19,8 +20,9 @@ function App () {
         <Route path="/login" component={Login} />
         <Route path="/about" component={About} />
         <Route path="/home" component={Home} />
-        <Route path="/admin" component={Admin} />
+        <Route exact path="/admin" component={Admin} />
         <Route path="/logout" component={Logout} />
+        <Route path="/admin/userstory" component={UserStories} />
       </div>
     </Router>
   );

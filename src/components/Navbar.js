@@ -22,9 +22,7 @@ export default class Navbar extends Component {
               <img src={logo} style={{width: 200}} alt="User Story" />
             </Link>
           </div>
-          <ul
-            className={this.state.menuOpen ? 'show-nav nav-links' : 'nav-links'}
-          >
+          <ul className="nav-links">
             <Link to="/login">
               <li>Login</li>
             </Link>

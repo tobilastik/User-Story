@@ -3,6 +3,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from '../config/baseUrl';
 import {Redirect} from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 
 const validEmailRegex = RegExp (
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -17,22 +18,26 @@ export default class Login extends Component {
   constructor (props) {
     super (props);
     const token = localStorage.getItem ('token');
+
     let userLoggedIn = true;
+    let adminLoggedIn = true;
+
     if (token == null) {
       userLoggedIn = false;
+      adminLoggedIn = false;
     }
 
     this.state = {
-      email: 'null',
-      password: 'null',
+      isLoading: false,
+      email: '',
+      password: '',
       checked: false,
       errors: {
-        fullName: '',
         email: '',
         password: '',
       },
       userLoggedIn,
-      adminLoggedIn: false,
+      adminLoggedIn,
     };
   }
 
@@ -62,6 +67,10 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault ();
     if (validateForm (this.state.errors)) {
+      this.setState ({
+        isLoading: true,
+      });
+
       this.loginUser ();
     } else {
       console.error ('Invalid Form');
@@ -69,6 +78,9 @@ export default class Login extends Component {
   };
 
   loginUser = async () => {
+    this.setState ({
+      isLoading: true,
+    });
     const user = {
       email: this.state.email,
       password: this.state.password,
@@ -85,6 +97,7 @@ export default class Login extends Component {
               localStorage.setItem ('token', 'randomstringtokentopersistdata');
               this.setState ({
                 adminLoggedIn: true,
+                isLoading: false,
               });
             })
             .catch (error => {
@@ -99,10 +112,15 @@ export default class Login extends Component {
               localStorage.setItem ('token', 'randomstringtokentopersistdata');
               this.setState ({
                 userLoggedIn: true,
+                isLoading: false,
               });
             })
             .catch (error => {
               console.log (`error is ${error.response}`);
+              this.setState ({
+                userLoggedIn: false,
+                isLoading: false,
+              });
             });
     }
   };
@@ -114,9 +132,7 @@ export default class Login extends Component {
   render () {
     if (this.state.userLoggedIn) {
       return <Redirect to="/home" />;
-    }
-
-    if (this.state.adminLoggedIn) {
+    } else if (this.state.adminLoggedIn) {
       return <Redirect to="/admin" />;
     }
 
@@ -165,6 +181,19 @@ export default class Login extends Component {
             </div>
           </form>
         </div>
+        {this.state.isLoading
+          ? <div
+              style={{
+                width: '100%',
+                height: '100',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {' '}<Loader />{' '}
+            </div>
+          : null}
       </div>
     );
   }
