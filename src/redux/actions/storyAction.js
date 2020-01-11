@@ -1,7 +1,7 @@
 import {
   STORY_COMPLEXITY,
   STORY_DESCRIPTION,
-  STORY_ENHANCEMENTS,
+  STORY_TYPE,
   STORY_SUMMARY,
   ESTIMATED_TIME,
   COST_ASSOCIATED,
@@ -20,9 +20,9 @@ export const storyDescription = value => {
     payload: value,
   };
 };
-export const storyEnhancements = value => {
+export const storyType = value => {
   return {
-    type: STORY_ENHANCEMENTS,
+    type: STORY_TYPE,
     payload: value,
   };
 };

@@ -8,7 +8,7 @@ const Dropdown = props => {
         id={props.name}
         name={props.name}
         value={props.value}
-        onChange={props.handleChange}
+        onChange={props.handlechange}
         className="complexity-form"
       >
         <option value="" disabled>

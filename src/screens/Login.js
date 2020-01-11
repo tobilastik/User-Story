@@ -25,6 +25,7 @@ export default class Login extends Component {
     this.state = {
       email: 'null',
       password: 'null',
+      checked: false,
       errors: {
         fullName: '',
         email: '',
@@ -72,24 +73,53 @@ export default class Login extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    axios
-      .post (`https://test-archimides.free.beeceptor.com/api/login`, {user})
-      .then (response => {
-        console.log (response);
-        localStorage.setItem ('token', 'randomstringtokentopersistdata');
-        this.setState ({
-          userLoggedIn: true,
-        });
-      })
-      .catch (error => {
-        console.log (`error is ${error.response}`);
-      });
+    {
+      this.state.checked
+        ? axios
+            .post (
+              `https://test-archimides.free.beeceptor.com/api/admin-login`,
+              {user}
+            )
+            .then (response => {
+              console.log (response);
+              localStorage.setItem ('token', 'randomstringtokentopersistdata');
+              this.setState ({
+                adminLoggedIn: true,
+              });
+            })
+            .catch (error => {
+              console.log (`error is ${error.response}`);
+            })
+        : axios
+            .post (`https://test-archimides.free.beeceptor.com/api/login`, {
+              user,
+            })
+            .then (response => {
+              console.log (response);
+              localStorage.setItem ('token', 'randomstringtokentopersistdata');
+              this.setState ({
+                userLoggedIn: true,
+              });
+            })
+            .catch (error => {
+              console.log (`error is ${error.response}`);
+            });
+    }
   };
-
+  handleCheckbox = () => {
+    this.setState ({
+      checked: !this.state.checked,
+    });
+  };
   render () {
     if (this.state.userLoggedIn) {
       return <Redirect to="/home" />;
     }
+
+    if (this.state.adminLoggedIn) {
+      return <Redirect to="/admin" />;
+    }
+
     const {errors} = this.state;
     return (
       <div className="wrapper">
@@ -123,9 +153,8 @@ export default class Login extends Component {
                 control={
                   <Checkbox
                     checked={this.state.checked}
-                    // onChange={this.handleChange}
+                    onChange={this.handleCheckbox}
                     value="checked"
-                    // color="red"
                   />
                 }
                 label="Login as Admin"

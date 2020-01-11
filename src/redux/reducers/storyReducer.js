@@ -1,7 +1,7 @@
 import {
   STORY_COMPLEXITY,
   STORY_DESCRIPTION,
-  STORY_ENHANCEMENTS,
+  STORY_TYPE,
   STORY_SUMMARY,
   ESTIMATED_TIME,
   COST_ASSOCIATED,
@@ -10,7 +10,7 @@ import {
 const initialState = {
   storyComplexity: '',
   storyDescription: '',
-  storyEnhancements: '',
+  storyType: '',
   storySummary: '',
   estimatedTime: '',
   costAssociated: '',
@@ -30,9 +30,9 @@ export default function storyReducer (state = initialState, action) {
       return Object.assign ({}, state, {
         storyDescription: action.payload,
       });
-    case STORY_ENHANCEMENTS:
+    case STORY_TYPE:
       return Object.assign ({}, state, {
-        storyEnhancements: action.payload,
+        storyType: action.payload,
       });
     case ESTIMATED_TIME:
       return Object.assign ({}, state, {

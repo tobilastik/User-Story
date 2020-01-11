@@ -10,7 +10,7 @@ import {bindActionCreators} from 'redux';
 import {
   storyComplexity,
   storyDescription,
-  storyEnhancements,
+  storyType,
   storySummary,
   estimatedTime,
   costAssociated,
@@ -132,10 +132,11 @@ class FormContainer extends Component {
     const {
       storyComplexity,
       storyDescription,
-      storyEnhancements,
+      storyType,
       storySummary,
       estimatedTime,
       costAssociated,
+      story,
     } = this.props;
     return (
       <React.Fragment>
@@ -149,46 +150,47 @@ class FormContainer extends Component {
               inputType={'text'}
               title={'Story Summary : '}
               name={'name'}
-              value={this.state.newUser.name}
-              handleChange={this.handleInput}
+              value={story.storySummary}
+              handlechange={summary => storySummary (summary)}
             />
             <TextArea
               className="story-textArea"
               placeholder={'Enter Description here'}
               rows={6}
-              value={this.state.newUser.about}
+              value={story.storyDescription}
               name={'currentPetInfo'}
-              handleChange={this.handleTextArea}
+              handlechange={desc => storyDescription (desc)}
             />
             <Select
               title={'Type: '}
               name={'type'}
               options={this.state.typeOptions}
-              value={this.state.newUser.gender}
+              value={story.storyType}
               placeholder={'Select Type'}
-              handleChange={this.handleInput}
+              handlechange={type => storyDescription (type)}
             />
             <Dropdown
               title={'Complexity: '}
               name={'complexity'}
               options={this.state.complexityOptions}
-              value={this.state.newUser.gender}
+              value={story.storyComplexity}
               placeholder={'Select Complexity'}
-              handleChange={this.handleInput}
+              handlechange={this.handleInput}
             />
+
             <Input
               inputType={'text'}
               title={'Estimated Time: '}
               name={'name'}
-              value={this.state.newUser.name}
-              handleChange={this.handleInput}
+              value={story.estimatedTime}
+              handlechange={this.handleInput}
             />
             <Input
               inputType={'number'}
               name={'age'}
               title={'Cost Associated: '}
-              value={this.state.newUser.age}
-              handleChange={this.handleAge}
+              value={story.costAssociated}
+              handlechange={this.handleAge}
             />
 
             <Button
@@ -219,7 +221,7 @@ function mapDispatchToProps (dispatch) {
     {
       storyComplexity,
       storyDescription,
-      storyEnhancements,
+      storyType,
       storySummary,
       estimatedTime,
       costAssociated,
