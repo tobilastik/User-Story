@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Container, CssBaseline, Typography} from '@material-ui/core';
-import {Redirect, Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
+import apiClient from '../config/baseUrl';
 
 export default class Storylist extends Component {
   constructor (props) {
@@ -33,15 +34,20 @@ export default class Storylist extends Component {
     });
     axios ({
       method: 'get',
-      url: 'https://test-archimides.free.beeceptor.com/api/getStories',
-    }).then (({data}) => {
-      console.log (data);
-      this.setState ({
-        userStory: data,
-        isLoading: false,
+      url: `${apiClient}/api/getStories`,
+    })
+      .then (({data}) => {
+        console.log (data);
+        var items = data[0];
+        this.setState ({
+          userStory: data,
+          isLoading: false,
+        });
+        console.log (this.state.userStory);
+      })
+      .catch (error => {
+        console.log ('error', error);
       });
-      console.log (this.state.userStory);
-    });
   }
 
   render () {
@@ -51,19 +57,19 @@ export default class Storylist extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <Container style={{marginTop: 22, width: '40%'}}>
+      <Container style={{marginTop: 22, padding: '20px', width: '100%'}}>
         <CssBaseline />
         <Typography component="div" style={{backgroundColor: '#cfe8fc'}}>
           {userStory
             ? userStory.map (info => {
                 return (
-                  <div>
+                  <div key={info.summary}>
                     <div
                       style={{
                         flexDirection: 'row',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        padding: '40px',
+                        // padding: '-100px',
                       }}
                     >
                       <h2>Name</h2>

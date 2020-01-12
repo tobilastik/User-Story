@@ -3,6 +3,7 @@ import {Container, CssBaseline, Typography} from '@material-ui/core';
 import {Redirect, Link} from 'react-router-dom';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
+import apiClient from '../config/baseUrl';
 
 export default class Admin extends Component {
   constructor (props) {
@@ -17,10 +18,10 @@ export default class Admin extends Component {
       cost: '',
       isLoading: false,
     };
-    const token = localStorage.getItem ('token');
+    const adminToken = localStorage.getItem ('admintoken');
 
     let adminLoggedIn = true;
-    if (token == null) {
+    if (adminToken == null) {
       adminLoggedIn = false;
     }
     this.state = {
@@ -33,7 +34,7 @@ export default class Admin extends Component {
     });
     axios ({
       method: 'get',
-      url: 'https://test-archimides.free.beeceptor.com/api/getStories',
+      url: `${apiClient}/api/getStories`,
     }).then (({data}) => {
       console.log (data);
       this.setState ({
@@ -46,18 +47,18 @@ export default class Admin extends Component {
 
   render () {
     const {userStory} = this.state;
-
     if (this.state.adminLoggedIn === false) {
       return <Redirect to="/" />;
     }
     return (
-      <Container style={{marginTop: 22, width: '40%'}}>
+      <Container style={{marginTop: 22, padding: '20px', width: '100%'}}>
         <CssBaseline />
         <Typography component="div" style={{backgroundColor: '#cfe8fc'}}>
           {userStory
             ? userStory.map (info => {
                 return (
                   <Link
+                    key={info.summary}
                     to={{
                       pathname: '/admin/userstory',
                       state: [info],
@@ -164,7 +165,7 @@ export default class Admin extends Component {
 
                     <div
                       style={{
-                        backgroundColor: info.status == 'rejected'
+                        backgroundColor: info.status === 'rejected'
                           ? 'red'
                           : 'green',
                       }}

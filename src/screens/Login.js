@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import axios from '../config/baseUrl';
 import {Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import apiClient from '../config/baseUrl';
+import axios from 'axios';
 
 const validEmailRegex = RegExp (
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -18,12 +19,15 @@ export default class Login extends Component {
   constructor (props) {
     super (props);
     const token = localStorage.getItem ('token');
+    const adminToken = localStorage.getItem ('admintoken');
 
     let userLoggedIn = true;
     let adminLoggedIn = true;
 
     if (token == null) {
       userLoggedIn = false;
+    }
+    if (adminToken == null) {
       adminLoggedIn = false;
     }
 
@@ -88,15 +92,17 @@ export default class Login extends Component {
     {
       this.state.checked
         ? axios
-            .post (
-              `https://test-archimides.free.beeceptor.com/api/admin-login`,
-              {user}
-            )
+            .post (`${apiClient}/api/admin-login`, {user})
             .then (response => {
               console.log (response);
               localStorage.setItem ('token', 'randomstringtokentopersistdata');
+              localStorage.setItem (
+                'admintoken',
+                'randomstringadmintokentopersistdata'
+              );
               this.setState ({
                 adminLoggedIn: true,
+                userLoggedIn: false,
                 isLoading: false,
               });
             })
@@ -104,7 +110,7 @@ export default class Login extends Component {
               console.log (`error is ${error.response}`);
             })
         : axios
-            .post (`https://test-archimides.free.beeceptor.com/api/login`, {
+            .post (`${apiClient}/api/login`, {
               user,
             })
             .then (response => {
@@ -112,6 +118,7 @@ export default class Login extends Component {
               localStorage.setItem ('token', 'randomstringtokentopersistdata');
               this.setState ({
                 userLoggedIn: true,
+                adminLoggedIn: false,
                 isLoading: false,
               });
             })
@@ -119,6 +126,7 @@ export default class Login extends Component {
               console.log (`error is ${error.response}`);
               this.setState ({
                 userLoggedIn: false,
+                adminLoggedIn: false,
                 isLoading: false,
               });
             });

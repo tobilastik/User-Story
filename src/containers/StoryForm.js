@@ -15,117 +15,53 @@ import {
   estimatedTime,
   costAssociated,
 } from '../redux/actions/storyAction';
+import axios from 'axios';
+import Loader from 'react-loader-spinner';
+import {Redirect} from 'react-router-dom';
+import apiClient from '../config/baseUrl';
 
-class FormContainer extends Component {
+class StoryForm extends Component {
   constructor (props) {
     super (props);
 
     this.state = {
-      newUser: {
-        name: '',
-        age: '',
-        type: '',
-        skills: [],
-        about: '',
-        complexity: '',
-      },
-
+      isLoading: false,
+      redirectToStories: false,
       typeOptions: ['Enhancements', 'Bugfix', 'Development', 'QA'],
       complexityOptions: ['Low', 'Medium', 'High'],
     };
-    this.handleTextArea = this.handleTextArea.bind (this);
-    this.handleAge = this.handleAge.bind (this);
-    this.handleFullName = this.handleFullName.bind (this);
     this.handleFormSubmit = this.handleFormSubmit.bind (this);
-    this.handleClearForm = this.handleClearForm.bind (this);
-    this.handleInput = this.handleInput.bind (this);
-  }
-
-  /* This lifecycle hook gets executed when the component mounts */
-
-  handleFullName (e) {
-    let value = e.target.value;
-    this.setState (
-      prevState => ({
-        newUser: {
-          ...prevState.newUser,
-          name: value,
-        },
-      }),
-      () => console.log (this.state.newUser)
-    );
-  }
-
-  handleAge (e) {
-    let value = e.target.value;
-    this.setState (
-      prevState => ({
-        newUser: {
-          ...prevState.newUser,
-          age: value,
-        },
-      }),
-      () => console.log (this.state.newUser)
-    );
-  }
-
-  handleInput (e) {
-    let value = e.target.value;
-    let name = e.target.name;
-    this.setState (
-      prevState => ({
-        newUser: {
-          ...prevState.newUser,
-          [name]: value,
-        },
-      }),
-      () => console.log (this.state.newUser)
-    );
-  }
-
-  handleTextArea (e) {
-    console.log ('Inside handleTextArea');
-    let value = e.target.value;
-    this.setState (
-      prevState => ({
-        newUser: {
-          ...prevState.newUser,
-          about: value,
-        },
-      }),
-      () => console.log (this.state.newUser)
-    );
   }
 
   handleFormSubmit (e) {
-    e.preventDefault ();
-    let userData = this.state.newUser;
-
-    fetch ('http://example.com', {
-      method: 'POST',
-      body: JSON.stringify (userData),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then (response => {
-      response.json ().then (data => {
-        console.log ('Successful' + data);
-      });
-    });
-  }
-
-  handleClearForm (e) {
+    const {story} = this.props;
     e.preventDefault ();
     this.setState ({
-      newUser: {
-        name: '',
-        age: '',
-        gender: '',
-        skills: [],
-        about: '',
-      },
+      isLoading: true,
     });
+
+    axios
+      .post (`${apiClient}/api/createStory`, {
+        storyComplexity: story.storyComplexity,
+        storyDescription: story.storyDescription,
+        storyType: story.storyType,
+        storySummary: story.storySummary,
+        estimatedTime: story.estimatedTime,
+        costAssociated: story.costAssociated,
+      })
+      .then (({data}) => {
+        console.log (data);
+        this.setState ({
+          isLoading: false,
+          redirectToStories: true,
+        });
+      })
+      .catch (error => {
+        console.log (error);
+        this.setState ({
+          isLoading: false,
+        });
+      });
   }
 
   render () {
@@ -138,6 +74,9 @@ class FormContainer extends Component {
       costAssociated,
       story,
     } = this.props;
+    if (this.state.redirectToStories) {
+      return <Redirect to="./home/storylist" />;
+    }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -159,7 +98,7 @@ class FormContainer extends Component {
               rows={6}
               value={story.storyDescription}
               name={'currentPetInfo'}
-              handlechange={desc => storyDescription (desc)}
+              handlechange={desc => storyDescription (desc.target.value)}
             />
             <Select
               title={'Type: '}
@@ -167,7 +106,7 @@ class FormContainer extends Component {
               options={this.state.typeOptions}
               value={story.storyType}
               placeholder={'Select Type'}
-              handlechange={type => storyDescription (type)}
+              handlechange={type => storyType (type.target.value)}
             />
             <Dropdown
               title={'Complexity: '}
@@ -175,7 +114,7 @@ class FormContainer extends Component {
               options={this.state.complexityOptions}
               value={story.storyComplexity}
               placeholder={'Select Complexity'}
-              handlechange={this.handleInput}
+              handlechange={complex => storyComplexity (complex.target.value)}
             />
 
             <Input
@@ -183,14 +122,14 @@ class FormContainer extends Component {
               title={'Estimated Time: '}
               name={'name'}
               value={story.estimatedTime}
-              handlechange={this.handleInput}
+              handlechange={time => estimatedTime (time.target.value)}
             />
             <Input
               inputType={'number'}
               name={'age'}
               title={'Cost Associated: '}
               value={story.costAssociated}
-              handlechange={this.handleAge}
+              handlechange={cost => costAssociated (cost.target.value)}
             />
 
             <Button
@@ -201,6 +140,20 @@ class FormContainer extends Component {
             />
           </Typography>
         </Container>
+        {this.state.isLoading
+          ? <div
+              style={{
+                width: '100%',
+                height: '100',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {' '}<Loader />{' '}
+            </div>
+          : null}
+
       </React.Fragment>
     );
   }
@@ -229,4 +182,4 @@ function mapDispatchToProps (dispatch) {
     dispatch
   );
 }
-export default connect (mapStateToProps, mapDispatchToProps) (FormContainer);
+export default connect (mapStateToProps, mapDispatchToProps) (StoryForm);

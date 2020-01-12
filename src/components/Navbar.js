@@ -1,18 +1,26 @@
 import React, {Component} from 'react';
-import {FaAlignRight} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 
 export default class Navbar extends Component {
-  state = {
-    menuOpen: false,
-  };
+  constructor (props) {
+    super (props);
 
-  toggleMenu = () => {
-    this.setState ({
-      menuOpen: !this.state.menuOpen,
-    });
-  };
+    const token = localStorage.getItem ('token');
+    console.log (token);
+
+    let adminLoggedIn = true;
+    let userLoggedIn = true;
+    if (token == null) {
+      adminLoggedIn = false;
+      userLoggedIn = false;
+    }
+    this.state = {
+      adminLoggedIn,
+      userLoggedIn,
+    };
+  }
+
   render () {
     return (
       <nav className="navbar">
@@ -23,10 +31,13 @@ export default class Navbar extends Component {
             </Link>
           </div>
           <ul className="nav-links">
-            <Link to="/login">
-              <li>Login</li>
-            </Link>
-
+            {this.state.userLoggedIn && this.state.adminLoggedIn
+              ? <Link to="/logout">
+                  <li>Logout</li>
+                </Link>
+              : <Link to="/login">
+                  <li>Login</li>
+                </Link>}
           </ul>
         </div>
       </nav>

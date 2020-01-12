@@ -7,13 +7,8 @@
 :root {
   --primaryColor: #19c0ca;
   --mainWhite: #fff;
-  --offWhite: #f7f7f7;
   --mainBlack: #222;
-  --mainGrey: #ececec;
-  --darkGrey: #cfcfcf;
   --mainSpacing: 3px;
-  --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
-  --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 .App {
@@ -36,7 +31,6 @@
   justify-content: space-between;
 }
 .nav-btn {
-  /* background: red; */
   border: none;
   cursor: pointer;
   outline: none;
@@ -55,7 +49,6 @@
   text-decoration: none;
   padding: 1rem 0;
   color: var(--mainBlack);
-  transition: var(--mainTransition);
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
@@ -69,9 +62,6 @@
   height: 100px;
 }
 @media screen and (min-width: 768px) {
-  .nav-btn {
-    display: none;
-  }
   .nav-center {
     max-width: 1170px;
     margin: 0 auto;
@@ -144,7 +134,7 @@
   margin-top: 30px;
   border-style: none;
   height: 50px;
-  color: white;
+  color: var(--mainWhite);
   border-radius: 40px;
   text-align: center;
   text-decoration: none;
@@ -161,7 +151,6 @@
 
 .form-container div {
   margin: 6px;
-  /* width: 400px; */
   align-self: center;
   align-items: center;
 }
