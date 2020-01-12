@@ -5,7 +5,7 @@ import axios from 'axios';
 import Loader from 'react-loader-spinner';
 import apiClient from '../config/baseUrl';
 
-export default class Storylist extends Component {
+export default class Admin extends Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -18,10 +18,10 @@ export default class Storylist extends Component {
       cost: '',
       isLoading: false,
     };
-    const token = localStorage.getItem ('token');
+    const adminToken = localStorage.getItem ('admintoken');
 
     let adminLoggedIn = true;
-    if (token == null) {
+    if (adminToken == null) {
       adminLoggedIn = false;
     }
     this.state = {
@@ -35,48 +35,41 @@ export default class Storylist extends Component {
     axios ({
       method: 'get',
       url: `${apiClient}/api/getStories`,
-    })
-      .then (({data}) => {
-        console.log (data);
-        var items = data[0];
-        this.setState ({
-          userStory: data,
-          isLoading: false,
-        });
-        console.log (this.state.userStory);
-      })
-      .catch (error => {
-        console.log ('error', error);
+    }).then (({data}) => {
+      console.log (data);
+      this.setState ({
+        userStory: data,
+        isLoading: false,
       });
+      console.log (this.state.userStory);
+    });
   }
 
   render () {
     const {userStory} = this.state;
-
     if (this.state.adminLoggedIn === false) {
       return <Redirect to="/" />;
     }
     return (
-      <Container style={{marginTop: 22, width: '40%'}}>
+      <Container style={{marginTop: 22, padding: '20px', width: '100%'}}>
         <CssBaseline />
-        <Typography
-          component="div"
-          style={{
-            backgroundColor: '#cfe8fc',
-            width: '400px',
-            alignSelf: 'center',
-          }}
-        >
+        <Typography component="div" style={{backgroundColor: '#cfe8fc'}}>
           {userStory
             ? userStory.map (info => {
                 return (
-                  <div key={info.createdBy}>
+                  <Link
+                    key={info.summary}
+                    to={{
+                      pathname: '/admin/userstory',
+                      state: {info: info},
+                    }}
+                  >
                     <div
                       style={{
                         flexDirection: 'row',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        // padding: '-100px',
+                        padding: '40px',
                       }}
                     >
                       <h2>Name</h2>
@@ -170,13 +163,34 @@ export default class Storylist extends Component {
                       <p>{info.cost}</p>
                     </div>
 
+                    <div
+                      style={{
+                        backgroundColor: info.status === 'rejected'
+                          ? 'red'
+                          : 'green',
+                      }}
+                    >
+                      <div
+                        style={{
+                          flexDirection: 'row',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '20px',
+                        }}
+                      >
+                        <p>
+                          Status
+                        </p>
+                        <p style={{padding: '20px'}}>{info.status}</p>
+                      </div>
+                    </div>
                     <hr
                       style={{
                         height: '20px',
                         backgroundColor: 'white',
                       }}
                     />
-                  </div>
+                  </Link>
                 );
               })
             : null}

@@ -322,3 +322,28 @@ input.error {
 .api-black {
   color: black;
 }
+
+.admin-action {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-accept {
+  background-color: green;
+  width: 200px;
+  text-decoration: none;
+  font-size: 30px;
+  color: white;
+  padding: 10px;
+  margin: 30px;
+}
+
+.admin-reject {
+  background-color: red;
+  width: 200px;
+  text-decoration: none;
+  font-size: 30px;
+  color: white;
+  padding: 10px;
+  margin: 30px;
+}

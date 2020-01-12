@@ -61,7 +61,7 @@ export default class Admin extends Component {
                     key={info.summary}
                     to={{
                       pathname: '/admin/userstory',
-                      state: [info],
+                      state: {info: info},
                     }}
                   >
                     <div
