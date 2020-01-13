@@ -347,3 +347,11 @@ input.error {
   padding: 10px;
   margin: 30px;
 }
+.space {
+  height: 100px;
+  padding: 100px;
+}
+
+p {
+  text-transform: capitalize;
+}

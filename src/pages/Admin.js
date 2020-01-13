@@ -58,6 +58,7 @@ export default class Admin extends Component {
             ? userStory.map (info => {
                 return (
                   <Link
+                    style={{textDecoration: 'none', color: 'black'}}
                     key={info.summary}
                     to={{
                       pathname: '/admin/userstory',
