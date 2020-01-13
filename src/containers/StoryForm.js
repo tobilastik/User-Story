@@ -141,16 +141,8 @@ class StoryForm extends Component {
           </Typography>
         </Container>
         {this.state.isLoading
-          ? <div
-              style={{
-                width: '100%',
-                height: '100',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {' '}<Loader />{' '}
+          ? <div className="loader">
+              <Loader />
             </div>
           : null}
 

@@ -1,19 +1,30 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, CssBaseline, Typography} from '@material-ui/core';
+import {connect} from 'react-redux';
+import {getStories} from '../redux/actions/storyAction';
+import {bindActionCreators} from 'redux';
 
 export default class UserStories extends Component {
-  componentDidMount () {
-    const {userStory} = this.props.location.state;
-    console.log (userStory);
-  }
+  state = {
+    newData: '',
+  };
+
+  componentDidMount = () => {
+    const info = this.props.history.location.state.info;
+    console.log ('info', info);
+    this.setState ({
+      newData: info,
+    });
+    // console.log (newData);
+  };
+
+  handleAccept = () => {
+    alert ('yeah');
+  };
 
   render () {
-    const info = this.props.history.location.state.info;
-    console.log (info);
-    let newData = info;
-    // console.log (newData);
-
+    const {newData} = this.state;
     return (
       <Container style={{marginTop: 22, padding: '20px', width: '100%'}}>
         <CssBaseline />
@@ -31,14 +42,7 @@ export default class UserStories extends Component {
           </div>
           <hr />
 
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Summary
             </p>
@@ -46,42 +50,21 @@ export default class UserStories extends Component {
 
           </div>
 
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Description
             </p>
             <p>{newData.description}</p>
 
           </div>
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Type
             </p>
             <p>{newData.type}</p>
 
           </div>
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Complexity
             </p>
@@ -89,32 +72,18 @@ export default class UserStories extends Component {
 
           </div>
 
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Estimated time for completion
             </p>
             <p>{newData.estimatedHrs}</p>
 
           </div>
-          <div
-            style={{
-              flexDirection: 'row',
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '20px',
-            }}
-          >
+          <div className="userStory-container">
             <p>
               Cost associated
             </p>
-            <p>{newData.status}</p>
+            <p>{newData.cost}</p>
           </div>
 
           <hr
@@ -126,11 +95,19 @@ export default class UserStories extends Component {
         </Typography>
 
         <div className="admin-action">
-          <Link className="admin-accept">Accept</Link>
-          <Link className="admin-reject">Reject</Link>
+          <Link onClick={this.handleAccept} className="admin-accept">
+            Accept
+          </Link>
+          <Link onClick={this.handleAccept} className="admin-reject">
+            Reject
+          </Link>
         </div>
         <div className="space" />
       </Container>
     );
   }
 }
+
+UserStories.defaultProps = {
+  info: [],
+};

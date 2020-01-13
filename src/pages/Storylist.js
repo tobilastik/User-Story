@@ -77,14 +77,7 @@ export default class Storylist extends Component {
                     </div>
                     <hr />
 
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Summary
                       </p>
@@ -92,42 +85,21 @@ export default class Storylist extends Component {
 
                     </div>
 
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Description
                       </p>
                       <p>{info.description}</p>
 
                     </div>
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Type
                       </p>
                       <p>{info.type}</p>
 
                     </div>
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Complexity
                       </p>
@@ -135,28 +107,14 @@ export default class Storylist extends Component {
 
                     </div>
 
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Estimated time for completion
                       </p>
                       <p>{info.estimatedHrs}</p>
 
                     </div>
-                    <div
-                      style={{
-                        flexDirection: 'row',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                      }}
-                    >
+                    <div className="storyList-container">
                       <p>
                         Cost associated
                       </p>
@@ -176,16 +134,8 @@ export default class Storylist extends Component {
 
         </Typography>
         {this.state.isLoading
-          ? <div
-              style={{
-                width: '100%',
-                height: '100',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {' '}<Loader />{' '}
+          ? <div className="loader">
+              <Loader />
             </div>
           : null}
       </Container>

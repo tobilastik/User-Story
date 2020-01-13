@@ -355,3 +355,25 @@ input.error {
 p {
   text-transform: capitalize;
 }
+
+.storyList-container {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.loader {
+  width: 100%;
+  height: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userStory-container {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}

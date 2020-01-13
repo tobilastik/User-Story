@@ -190,16 +190,8 @@ export default class Login extends Component {
           </form>
         </div>
         {this.state.isLoading
-          ? <div
-              style={{
-                width: '100%',
-                height: '100',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {' '}<Loader />{' '}
+          ? <div className="loader">
+              <Loader />
             </div>
           : null}
       </div>
