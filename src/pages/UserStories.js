@@ -19,13 +19,13 @@ class UserStories extends Component {
     // console.log (newData);
   };
 
-  handleAccept = status => {
-    this.props.acceptStories (status);
+  handleAccept = () => {
+    this.props.acceptStories ({status: 'approved'});
     this.props.history.goBack ();
   };
 
-  handleReject = status => {
-    this.props.acceptStories (status);
+  handleReject = () => {
+    this.props.rejectStories ({status: 'rejected'});
     this.props.history.goBack ();
   };
 
@@ -122,8 +122,8 @@ const mapStateToProps = state => ({
   admin: state.admin,
 });
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators ({acceptStories, rejectStories}, dispatch);
-}
+};
 
 export default connect (mapStateToProps, mapDispatchToProps) (UserStories);

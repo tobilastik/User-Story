@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -10,22 +10,24 @@ import Logout from './pages/Logout';
 import UserStories from './pages/UserStories';
 import Storylist from './pages/Storylist';
 
-function App () {
-  return (
-    <Router>
-      <div className="App">
-        <Navbar />
+class App extends Component {
+  render () {
+    return (
+      <Router>
+        <div className="App">
+          <Navbar />
 
-        <Route exact path="/" component={Landing} />
-        <Route path="/login" component={Login} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/admin" component={Admin} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/admin/userstory" component={UserStories} />
-        <Route path="/home/storylist" component={Storylist} />
-      </div>
-    </Router>
-  );
+          <Route exact path="/" component={Landing} />
+          <Route path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/admin" component={Admin} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/admin/userstory" component={UserStories} />
+          <Route path="/home/storylist" component={Storylist} />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

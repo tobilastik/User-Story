@@ -93,3 +93,27 @@ export const getStories = request => {
       .catch (err => dispatch (storiesFail (err)));
   };
 };
+
+export const acceptActionOnStories = request => {
+  console.log (request);
+  return dispatch => {
+    axios
+      .get (`${apiClient}/api/getStories`)
+      .then (res => {
+        dispatch (acceptStories (res.data.status));
+      })
+      .catch (err => dispatch (storiesFail (err)));
+  };
+};
+
+export const rejectActionOnStories = request => {
+  console.log (request);
+  return dispatch => {
+    axios
+      .get (`${apiClient}/api/getStories`)
+      .then (res => {
+        dispatch (rejectStories (res.data.status));
+      })
+      .catch (err => dispatch (storiesFail (err)));
+  };
+};
