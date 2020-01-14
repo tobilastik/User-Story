@@ -15,14 +15,16 @@ export default class Navbar extends Component {
     console.log (token);
   }
 
-  componentWillMount () {
+  componentDidMount () {
     if (localStorage.getItem ('token')) {
       this.setState ({loggedinasuser: true});
     } else {
       this.setState ({loggedinasuser: false});
     }
   }
+
   render () {
+    let btnText = this.state.loggedinasuser ? 'Logout' : 'Login';
     const {loggedinasuser} = this.state;
     return (
       <nav className="navbar">
@@ -35,10 +37,10 @@ export default class Navbar extends Component {
           <ul className="nav-links">
             {loggedinasuser == true
               ? <Link to="/logout">
-                  <li>Logout</li>
+                  <li>{btnText}</li>
                 </Link>
               : <Link to="/login">
-                  <li>Login</li>
+                  <li>{btnText}</li>
                 </Link>}
           </ul>
         </div>
