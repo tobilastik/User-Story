@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, CssBaseline, Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {getStories} from '../redux/actions/storyAction';
+import {acceptStories, rejectStories} from '../redux/actions/storyAction';
 import {bindActionCreators} from 'redux';
 
-export default class UserStories extends Component {
+class UserStories extends Component {
   state = {
     newData: '',
   };
@@ -19,8 +19,9 @@ export default class UserStories extends Component {
     // console.log (newData);
   };
 
-  handleAccept = () => {
-    alert ('yeah');
+  handleAccept = status => {
+    this.props.acceptStories (status);
+    this.props.history.goBack ();
   };
 
   render () {
@@ -111,3 +112,13 @@ export default class UserStories extends Component {
 UserStories.defaultProps = {
   info: [],
 };
+
+const mapStateToProps = state => ({
+  admin: state.admin,
+});
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators ({acceptStories, rejectStories}, dispatch);
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (UserStories);

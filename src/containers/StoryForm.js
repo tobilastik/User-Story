@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Input from '../components/Input';
+import CostInput from '../components/CostInput';
 import TextArea from '../components/TextArea';
 import Select from '../components/Select';
 import Button from '../components/Button';
@@ -86,9 +87,8 @@ class StoryForm extends Component {
             style={{backgroundColor: '#cfe8fc', height: '100vh'}}
           >
             <Input
-              inputType={'text'}
+              inputtype={'text'}
               title={'Story Summary : '}
-              name={'name'}
               value={story.storySummary}
               handlechange={summary => storySummary (summary.target.value)}
             />
@@ -118,20 +118,19 @@ class StoryForm extends Component {
             />
 
             <Input
-              inputType={'text'}
+              inputtype={'text'}
               title={'Estimated Time: '}
               name={'name'}
               value={story.estimatedTime}
               handlechange={time => estimatedTime (time.target.value)}
             />
-            <Input
-              inputType={'number'}
-              name={'age'}
-              title={'Cost Associated: '}
+
+            <CostInput
+              inputtype={'number'}
+              title={'Cost Associated: $ '}
               value={story.costAssociated}
               handlechange={cost => costAssociated (cost.target.value)}
             />
-
             <Button
               action={this.handleFormSubmit}
               type={'primary'}

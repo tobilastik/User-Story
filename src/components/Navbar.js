@@ -5,23 +5,25 @@ import logo from '../assets/images/logo.png';
 export default class Navbar extends Component {
   constructor (props) {
     super (props);
+    this.state = {
+      loggedinasuser: false,
+    };
 
     const token = localStorage.getItem ('token');
-    console.log (token);
+    const adminToken = localStorage.getItem ('admintoken');
 
-    let adminLoggedIn = true;
-    let userLoggedIn = true;
-    if (token == null) {
-      adminLoggedIn = false;
-      userLoggedIn = false;
-    }
-    this.state = {
-      adminLoggedIn,
-      userLoggedIn,
-    };
+    console.log (token);
   }
 
+  componentWillMount () {
+    if (localStorage.getItem ('token')) {
+      this.setState ({loggedinasuser: true});
+    } else {
+      this.setState ({loggedinasuser: false});
+    }
+  }
   render () {
+    const {loggedinasuser} = this.state;
     return (
       <nav className="navbar">
         <div className="nav-center">
@@ -31,7 +33,7 @@ export default class Navbar extends Component {
             </Link>
           </div>
           <ul className="nav-links">
-            {this.state.userLoggedIn && this.state.adminLoggedIn
+            {loggedinasuser == true
               ? <Link to="/logout">
                   <li>Logout</li>
                 </Link>

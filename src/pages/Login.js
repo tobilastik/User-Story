@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {Redirect} from 'react-router-dom';
+import {Redirect, NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import apiClient from '../config/baseUrl';
 import axios from 'axios';
@@ -33,6 +33,7 @@ export default class Login extends Component {
 
     this.state = {
       isLoading: false,
+      loggedIn: false,
       email: '',
       password: '',
       checked: false,
@@ -104,6 +105,7 @@ export default class Login extends Component {
                 adminLoggedIn: true,
                 userLoggedIn: false,
                 isLoading: false,
+                loggedIn: true,
               });
             })
             .catch (error => {
@@ -120,6 +122,7 @@ export default class Login extends Component {
                 userLoggedIn: true,
                 adminLoggedIn: false,
                 isLoading: false,
+                loggedIn: false,
               });
             })
             .catch (error => {

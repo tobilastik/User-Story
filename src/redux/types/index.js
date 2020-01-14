@@ -9,3 +9,5 @@ export const COST_ASSOCIATED = 'COST_ASSOCIATED';
 //Admin Action types
 export const GET_STORIES_FAIL = 'GET_STORIES_FAIL';
 export const GET_STORIES_PASS = 'GET_STORIES_PASS';
+export const ACCEPT_STORIES = 'ACCEPT_STORIES';
+export const REJECT_STORIES = 'REJECT_STORIES';

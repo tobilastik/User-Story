@@ -6,7 +6,9 @@ const Input = props => {
     <div>
       <label htmlFor={props.name}>
         {props.title}
+
       </label>
+
       <input
         className="story-input"
         id={props.name}

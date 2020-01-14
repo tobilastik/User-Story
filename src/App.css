@@ -377,3 +377,14 @@ p {
   justify-content: space-between;
   padding: 20px;
 }
+
+.cost-associated {
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: row;
+}

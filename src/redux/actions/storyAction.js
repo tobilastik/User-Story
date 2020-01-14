@@ -7,6 +7,8 @@ import {
   COST_ASSOCIATED,
   GET_STORIES_FAIL,
   GET_STORIES_PASS,
+  ACCEPT_STORIES,
+  REJECT_STORIES,
 } from '../types/index';
 
 import axios from 'axios';
@@ -63,6 +65,20 @@ export const storiesFail = err => {
   return {
     type: GET_STORIES_FAIL,
     payload: err,
+  };
+};
+
+export const acceptStories = value => {
+  return {
+    type: ACCEPT_STORIES,
+    payload: value,
+  };
+};
+
+export const rejectStories = value => {
+  return {
+    type: REJECT_STORIES,
+    payload: value,
   };
 };
 

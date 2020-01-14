@@ -7,6 +7,7 @@ export default class Home extends Component {
     super (props);
 
     const token = localStorage.getItem ('token');
+    console.log (token);
 
     let userLoggedIn = true;
     if (token == null) {
