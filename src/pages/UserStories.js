@@ -24,6 +24,11 @@ class UserStories extends Component {
     this.props.history.goBack ();
   };
 
+  handleReject = status => {
+    this.props.acceptStories (status);
+    this.props.history.goBack ();
+  };
+
   render () {
     const {newData} = this.state;
     return (
@@ -99,7 +104,7 @@ class UserStories extends Component {
           <Link onClick={this.handleAccept} className="admin-accept">
             Accept
           </Link>
-          <Link onClick={this.handleAccept} className="admin-reject">
+          <Link onClick={this.handleReject} className="admin-reject">
             Reject
           </Link>
         </div>
