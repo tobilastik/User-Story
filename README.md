@@ -12,3 +12,11 @@ Once again I came to this compromise because this endpoint - api/getStories is n
 
 ## Admin Accepting and Rejecting story
 Since there is no api to get updated status(either Accept or Reject). I made use of redux to make the data available across all pages, and after invoking a function on Accept or Reject, it routes back to the storylist page and change the state of status in redux
+
+
+## Links
+ Admin Page http://localhost:3000/admin
+ Login Page http://localhost:3000/login
+ Logout Link http://localhost:3000/logout
+ User's PAge http://localhost:3000/home
+ 
