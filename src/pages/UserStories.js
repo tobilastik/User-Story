@@ -2,7 +2,12 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, CssBaseline, Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {acceptStories, rejectStories} from '../redux/actions/storyAction';
+import {
+  acceptStories,
+  rejectStories,
+  getStories,
+  storiesPass,
+} from '../redux/actions/storyAction';
 import {bindActionCreators} from 'redux';
 
 class UserStories extends Component {
@@ -15,22 +20,41 @@ class UserStories extends Component {
     console.log ('info', info);
     this.setState ({
       newData: info,
+      stories: this.props.admin,
     });
-    // console.log (newData);
   };
 
   handleAccept = () => {
-    this.props.acceptStories ({status: 'approved'});
+    const {newData, stories} = this.state;
+    let loopedData = this.props.admin.storiesPass;
+    loopedData.map (data => {
+      {
+        if (data.summary == newData.summary) {
+          newData.status = 'Approved';
+        }
+      }
+    });
     this.props.history.goBack ();
   };
 
   handleReject = () => {
-    this.props.rejectStories ({status: 'rejected'});
+    const {newData, stories} = this.state;
+    let loopedData = this.props.admin.storiesPass;
+    loopedData.map (data => {
+      {
+        if (data.summary == newData.summary) {
+          newData.status = 'Rejected';
+        }
+      }
+    });
     this.props.history.goBack ();
   };
 
   render () {
     const {newData} = this.state;
+
+    console.log ('this.props.storiesPass', this.props.admin.storiesPass);
+
     return (
       <Container style={{marginTop: 22, padding: '20px', width: '100%'}}>
         <CssBaseline />
@@ -122,8 +146,11 @@ const mapStateToProps = state => ({
   admin: state.admin,
 });
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators ({acceptStories, rejectStories}, dispatch);
-};
+// const mapDispatchToProps = dispatch => {
+//   return bindActionCreators (
+//     {acceptStories, rejectStories, getStories, storiesPass},
+//     dispatch
+//   );
+// };
 
-export default connect (mapStateToProps, mapDispatchToProps) (UserStories);
+export default connect (mapStateToProps) (UserStories);

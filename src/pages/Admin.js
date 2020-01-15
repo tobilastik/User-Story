@@ -30,8 +30,11 @@ class Admin extends Component {
     };
   }
 
+  // check if data is already in stories pass, if not, fetch data from api in the redux file
   componentWillMount () {
-    this.props.getStories ();
+    !this.props.admin.storiesPass
+      ? this.props.getStories ()
+      : console.log ('ok');
   }
 
   render () {
