@@ -34,7 +34,7 @@ class Admin extends Component {
   componentWillMount () {
     !this.props.admin.storiesPass
       ? this.props.getStories ()
-      : console.log ('ok');
+      : console.log ('Userstories');
   }
 
   render () {

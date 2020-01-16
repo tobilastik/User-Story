@@ -2,32 +2,25 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, CssBaseline, Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {
-  acceptStories,
-  rejectStories,
-  getStories,
-  storiesPass,
-} from '../redux/actions/storyAction';
-import {bindActionCreators} from 'redux';
 
 class UserStories extends Component {
   state = {
     newData: '',
+    selectedStories: this.props.history.location.state.info,
   };
 
   componentDidMount = () => {
-    const info = this.props.history.location.state.info;
-    console.log ('info', info);
     this.setState ({
-      newData: info,
+      newData: this.state.selectedStories,
       stories: this.props.admin,
     });
   };
 
+  //loop over passed stories from redux, compare it with the current data admin wants to accept(by using a unique key in both data which is summary)
   handleAccept = () => {
-    const {newData, stories} = this.state;
-    let loopedData = this.props.admin.storiesPass;
-    loopedData.map (data => {
+    const {newData} = this.state;
+    let passedStories = this.props.admin.storiesPass;
+    passedStories.map (data => {
       {
         if (data.summary == newData.summary) {
           newData.status = 'Approved';
@@ -38,9 +31,9 @@ class UserStories extends Component {
   };
 
   handleReject = () => {
-    const {newData, stories} = this.state;
-    let loopedData = this.props.admin.storiesPass;
-    loopedData.map (data => {
+    const {newData} = this.state;
+    let passedStories = this.props.admin.storiesPass;
+    passedStories.map (data => {
       {
         if (data.summary == newData.summary) {
           newData.status = 'Rejected';
@@ -138,19 +131,8 @@ class UserStories extends Component {
   }
 }
 
-UserStories.defaultProps = {
-  info: [],
-};
-
 const mapStateToProps = state => ({
   admin: state.admin,
 });
-
-// const mapDispatchToProps = dispatch => {
-//   return bindActionCreators (
-//     {acceptStories, rejectStories, getStories, storiesPass},
-//     dispatch
-//   );
-// };
 
 export default connect (mapStateToProps) (UserStories);
