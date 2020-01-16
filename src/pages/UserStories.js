@@ -5,25 +5,17 @@ import {connect} from 'react-redux';
 
 class UserStories extends Component {
   state = {
-    newData: '',
     selectedStories: this.props.history.location.state.info,
+    passedStories: this.props.admin.storiesPass,
   };
 
-  componentDidMount = () => {
-    this.setState ({
-      newData: this.state.selectedStories,
-      stories: this.props.admin,
-    });
-  };
-
-  //loop over passed stories from redux, compare it with the current data admin wants to accept(by using a unique key in both data which is summary)
+  //loop over passed stories from redux, compare it with the current data admin wants to accept/reject(by using a unique key in both data which is summary)
   handleAccept = () => {
-    const {newData} = this.state;
-    let passedStories = this.props.admin.storiesPass;
+    const {selectedStories, passedStories} = this.state;
     passedStories.map (data => {
       {
-        if (data.summary == newData.summary) {
-          newData.status = 'Approved';
+        if (data.summary == selectedStories.summary) {
+          selectedStories.status = 'Approved';
         }
       }
     });
@@ -31,12 +23,11 @@ class UserStories extends Component {
   };
 
   handleReject = () => {
-    const {newData} = this.state;
-    let passedStories = this.props.admin.storiesPass;
+    const {selectedStories, passedStories} = this.state;
     passedStories.map (data => {
       {
-        if (data.summary == newData.summary) {
-          newData.status = 'Rejected';
+        if (data.summary == selectedStories.summary) {
+          selectedStories.status = 'Rejected';
         }
       }
     });
@@ -44,7 +35,7 @@ class UserStories extends Component {
   };
 
   render () {
-    const {newData} = this.state;
+    const {selectedStories} = this.state;
 
     console.log ('this.props.storiesPass', this.props.admin.storiesPass);
 
@@ -69,7 +60,7 @@ class UserStories extends Component {
             <p>
               Summary
             </p>
-            <p>{newData.summary}</p>
+            <p>{selectedStories.summary}</p>
 
           </div>
 
@@ -77,21 +68,21 @@ class UserStories extends Component {
             <p>
               Description
             </p>
-            <p>{newData.description}</p>
+            <p>{selectedStories.description}</p>
 
           </div>
           <div className="userStory-container">
             <p>
               Type
             </p>
-            <p>{newData.type}</p>
+            <p>{selectedStories.type}</p>
 
           </div>
           <div className="userStory-container">
             <p>
               Complexity
             </p>
-            <p>{newData.complexity}</p>
+            <p>{selectedStories.complexity}</p>
 
           </div>
 
@@ -99,14 +90,14 @@ class UserStories extends Component {
             <p>
               Estimated time for completion
             </p>
-            <p>{newData.estimatedHrs}</p>
+            <p>{selectedStories.estimatedHrs}</p>
 
           </div>
           <div className="userStory-container">
             <p>
               Cost associated
             </p>
-            <p>{newData.cost}</p>
+            <p>{selectedStories.cost}</p>
           </div>
 
           <hr
