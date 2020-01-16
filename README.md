@@ -20,3 +20,5 @@ Since there is no api to get updated status(either Accept or Reject). I made use
  Logout Link http://localhost:3000/logout
  User's PAge http://localhost:3000/home
  
+## Login and Logout Button Toggle
+Login and Logout Button Toggle works on refreshing of page
