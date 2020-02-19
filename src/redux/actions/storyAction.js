@@ -106,6 +106,20 @@ export const acceptActionOnStories = request => {
   };
 };
 
+// export const acceptActionStories = request => {
+//   console.log (request);
+//   return dispatch => {
+//     axios
+//       .get (`${apiClient}/api/getStories`)
+//       .then (res => {
+//         dispatch ({type: 'ACCEPT_USERS', payload: response.data});
+//       })
+//       .catch (err => {
+//         dispatch ({type: 'REJECT_USERS', payload: err});
+//       });
+//   };
+// };
+
 export const rejectActionOnStories = request => {
   console.log (request);
   return dispatch => {
